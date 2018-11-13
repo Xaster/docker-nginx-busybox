@@ -303,7 +303,7 @@ RUN cd \
         cut -d " " -f 2) \
     && apt clean \
     && rm -rf \
-        &HOME/* \
+        $HOME/* \
         /var/lib/apt/lists/* \
         /usr/lib/libjemalloc* \
         /usr/bin/redis* \
@@ -334,7 +334,7 @@ RUN addgroup -S nginx \
     && chown redis:redis /var/run/redis \
     && chmod 750 /var/lib/redis \
     && addgroup -S nginx \
-    && adduser -D -S -h /var/cache/nginx -s /sbin/nologin -G nginx nginx \
+    && adduser -D -S -h /var/cache/nginx -s /bin/false -G nginx nginx \
     && mkdir -p \
         /usr/share/nginx/html \
         /etc/nginx_default/conf.d \
