@@ -319,7 +319,7 @@ FROM busybox:glibc
 
 COPY --from=build /backup-all/* /
 
-RUN addgroup -S nginx \
+RUN addgroup -S redis \
     && adduser -D -S -h /var/lib/redis -s /bin/false -G redis redis \
     && mkdir -p \
         /etc/redis \
