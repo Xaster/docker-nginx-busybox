@@ -325,7 +325,7 @@ RUN mkdir -p \
         /var/run/redis \
     && addgroup -S redis \
     && adduser -D -S -h /var/lib/redis -s /bin/false -G redis redis \
-    && wget -O /etc/redis_default/redis.conf https://raw.githubusercontent.com/Xaster/docker-nginx-debian/master/config/etc/redis/redis.conf \
+    && wget -O /etc/redis_default/redis.conf https://raw.githubusercontent.com/Xaster/docker-nginx-busybox/master/config/etc/redis/redis.conf \
     && chown redis:redis /etc/redis_default/redis.conf \
     && chmod 640 /etc/redis_default/redis.conf \
     && chown redis:adm /var/log/redis \
@@ -342,9 +342,9 @@ RUN mkdir -p \
     && mv -f /etc/nginx/html /usr/share/nginx/html_default \
     && chown -R nginx:nginx /usr/share/nginx/html \
     && mv -f /etc/nginx/* /etc/nginx_default \
-    && wget -O /etc/nginx_default/nginx.conf https://raw.githubusercontent.com/Xaster/docker-nginx-debian/master/config/etc/nginx/nginx.conf \
-    && wget -O /etc/nginx_default/conf.d/default.conf https://raw.githubusercontent.com/Xaster/docker-nginx-debian/master/config/etc/nginx/conf.d/default.conf \
-    && wget -O /usr/bin/CMD-Shell https://raw.githubusercontent.com/Xaster/docker-nginx-debian/master/CMD-Shell \
+    && wget -O /etc/nginx_default/nginx.conf https://raw.githubusercontent.com/Xaster/docker-nginx-busybox/master/config/etc/nginx/nginx.conf \
+    && wget -O /etc/nginx_default/conf.d/default.conf https://raw.githubusercontent.com/Xaster/docker-nginx-busybox/master/config/etc/nginx/conf.d/default.conf \
+    && wget -O /usr/bin/CMD-Shell https://raw.githubusercontent.com/Xaster/docker-nginx-busybox/master/CMD-Shell \
     && chmod +x /usr/bin/CMD-Shell \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
