@@ -319,13 +319,14 @@ FROM busybox:glibc
 
 COPY --from=build /backup-all/* /
 
-RUN addgroup -S redis \
-    && adduser -D -S -h /var/lib/redis -s /bin/false -G redis redis \
-    && mkdir -p \
+RUN mkdir -p \
         /etc/redis \
         /etc/redis_default \
         /var/log/redis \
+        /var/lib/redis \
         /var/run/redis \
+    && addgroup -S redis \
+    && adduser -D -S -h /var/lib/redis -s /bin/false -G redis redis \
     && wget -O /etc/redis_default/redis.conf https://raw.githubusercontent.com/Xaster/docker-nginx-debian/master/config/etc/redis/redis.conf \
     && chown redis:redis /etc/redis_default/redis.conf \
     && chmod 640 /etc/redis_default/redis.conf \
@@ -333,12 +334,13 @@ RUN addgroup -S redis \
     && chmod 02750 /var/log/redis \
     && chown redis:redis /var/run/redis \
     && chmod 750 /var/lib/redis \
-    && addgroup -S nginx \
-    && adduser -D -S -h /var/cache/nginx -s /bin/false -G nginx nginx \
     && mkdir -p \
         /usr/share/nginx/html \
         /etc/nginx_default/conf.d \
         /etc/certs \
+        /var/cache/nginx \
+    && addgroup -S nginx \
+    && adduser -D -S -h /var/cache/nginx -s /bin/false -G nginx nginx \
     && mv -f /etc/nginx/html /usr/share/nginx/html_default \
     && chown -R nginx:nginx /usr/share/nginx/html \
     && mv -f /etc/nginx/* /etc/nginx_default \
