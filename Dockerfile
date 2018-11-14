@@ -327,11 +327,8 @@ RUN mkdir -p \
     && adduser -D -S -h /var/lib/redis -s /bin/false -G redis redis \
     && wget -O /etc/redis_default/redis.conf https://raw.githubusercontent.com/Xaster/docker-nginx-busybox/master/config/etc/redis/redis.conf \
     && chown redis:redis /etc/redis_default/redis.conf \
-    && chmod 640 /etc/redis_default/redis.conf \
     && chown redis:adm /var/log/redis \
-    && chmod 02750 /var/log/redis \
     && chown redis:redis /var/run/redis \
-    && chmod 750 /var/lib/redis \
     && mkdir -p \
         /usr/share/nginx/html \
         /usr/share/nginx/html_default \
