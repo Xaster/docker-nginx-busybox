@@ -282,13 +282,13 @@ RUN cd \
         sed 's/^[ \t]*//g' | \
         sed 's/[ \t]*$//g' | \
         sort -u | \
-        tee $HOME/ldd-deps-files.txt \
-    && readlink -f $(cat $HOME/ldd-deps-files.txt) | \
+        tee ldd-deps-files.txt \
+    && readlink -f $(cat ldd-deps-files.txt) | \
         sort -u | \
-        tee $HOME/link-source-files.txt \
+        tee link-source-files.txt \
     && cp --parents -d \
-        $(cat $HOME/ldd-deps-files.txt \
-        $HOME/link-source-files.txt | \
+        $(cat ldd-deps-files.txt \
+        link-source-files.txt | \
         sort -u) \
         /backup-all \
     && cp --parents -r \
@@ -307,17 +307,15 @@ RUN cd \
         /var/lib/apt/lists/* \
         /usr/lib/libjemalloc* \
         /usr/bin/redis* \
-        /usr/bin/envsubst* \
         /usr/sbin/nginx* \
         /usr/lib/nginx \
         /etc/nginx \
         /var/run/nginx \
-        /var/log/nginx \
-        /usr/share/zoneinfo
+        /var/log/nginx
 
 FROM busybox:glibc
 
-COPY --from=build /backup-all/* /
+COPY --from=build /backup-all /
 
 RUN mkdir -p \
         /etc/redis \
