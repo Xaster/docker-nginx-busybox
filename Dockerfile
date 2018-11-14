@@ -334,12 +334,18 @@ RUN mkdir -p \
     && chmod 750 /var/lib/redis \
     && mkdir -p \
         /usr/share/nginx/html \
+        /usr/share/nginx/html_default \
         /etc/nginx_default/conf.d \
         /etc/certs \
+        /var/log/nginx \
         /var/cache/nginx \
+        /var/run/nginx \
     && addgroup -S nginx \
     && adduser -D -S -h /var/cache/nginx -s /bin/false -G nginx nginx \
-    && mv -f /etc/nginx/html /usr/share/nginx/html_default \
+    && mv -f /etc/nginx/html/index.html \
+        /etc/nginx/html/50x.html \
+        /usr/share/nginx/html_default \
+    && rm -rf /etc/nginx/html \
     && chown -R nginx:nginx /usr/share/nginx/html \
     && mv -f /etc/nginx/* /etc/nginx_default \
     && wget -O /etc/nginx_default/nginx.conf https://raw.githubusercontent.com/Xaster/docker-nginx-busybox/master/config/etc/nginx/nginx.conf \
