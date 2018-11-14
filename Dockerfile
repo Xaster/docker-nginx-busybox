@@ -268,7 +268,7 @@ RUN cd \
         /etc/nginx/mime.types.default \
         /etc/nginx/fastcgi_params.default \
         /etc/nginx/fastcgi.conf.default \
-    && mkdir -p /backup-all \
+    && mkdir -p /copy-all \
     && ldd /usr/lib/libjemalloc* \
         /usr/bin/redis* \
         /usr/bin/envsubst* \
@@ -282,21 +282,21 @@ RUN cd \
         sed 's/^[ \t]*//g' | \
         sed 's/[ \t]*$//g' | \
         sort -u | \
-        tee ldd-deps-files.txt \
-    && readlink -f $(cat ldd-deps-files.txt) | \
+        tee software-deps.txt \
+    && readlink -f $(cat software-deps.txt) | \
         sort -u | \
-        tee link-source-files.txt \
+        tee symlink-source.txt \
     && cp --parents -d \
-        $(cat ldd-deps-files.txt \
-        link-source-files.txt | \
+        $(cat software-deps.txt \
+        symlink-source.txt | \
         sort -u) \
-        /backup-all \
+        /copy-all \
     && cp --parents -r \
         /etc/nginx \
         /var/run/nginx \
         /var/log/nginx \
         /usr/share/zoneinfo \
-        /backup-all \
+        /copy-all \
     && apt purge --auto-remove -y \
         $(cat build-deps.txt | \
         grep "Unpacking " | \
@@ -315,7 +315,7 @@ RUN cd \
 
 FROM busybox:glibc
 
-COPY --from=build /backup-all /
+COPY --from=build /copy-all /
 
 RUN mkdir -p \
         /etc/redis \
