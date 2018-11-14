@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 test -f '/etc/redis/redis.conf' || cp -p /etc/redis_default/redis.conf /etc/redis/redis.conf
 test -f '/etc/redis/redis.conf.default' || cp -p /etc/redis_default/redis.conf /etc/redis/redis.conf.default
 test -f '/etc/nginx/fastcgi.conf' || cp /etc/nginx_default/fastcgi.conf /etc/nginx/fastcgi.conf
